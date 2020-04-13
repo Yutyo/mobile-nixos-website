@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.10">
+<title>Mobile NixOS Options — Mobile NixOS</title>
+<link rel="stylesheet" href="../styles/styles.css">
+<link lang="en" rel="alternate" type="application/rss+xml" title="RSS feed (EN)" href="../index.xml" />
+</head>
+<body class="options_index article">
+<header>
+  <nav>
+    <ul>
+      <li>
+        <h1>
+          <a href='../index.html' class=''>Mobile NixOS</a>
+        </h1>
+      </li>
+      <li><a href='../getting-started.html' class=''>Getting Started</a></li>
+      <li><a href='../resources.html' class=''>Resources</a></li>
+      <li><a href='../devices/index.html' class=''>Devices List</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div id="header">
+<h1>Mobile NixOS Options</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following list only includes the options defined by Mobile NixOS.</p>
+</div>
+<div class="paragraph">
+<p>Refer to the <a href="https://nixos.org/nixos/options.html">NixOS options listing</a>
+for more options.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_options_list">Options list</h2>
+<div class="sectionbody">
+<dl class="options-list">
+<div>
+  <dt>
+    <tt>
+      mobile.adbd.enable
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>false</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Enables adbd on the device.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.boot.stage-1.bootlog.enable
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>true</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Enables bootlogd logging multiplexer.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.boot.stage-1.bootlog.kmsg
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>false</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Enables logging to /dev/kmsg.</p>
+</div>
+<div class="paragraph">
+<p>Note that this may render switching to stage-2 inoperable.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.boot.stage-1.contents
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">list of attribute sets</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>[]</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Additional files for the initrd.</p>
+</div>
+<div class="paragraph">
+<p>See <code>makeInitrd</code> for use of <code>contents</code>.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.boot.stage-1.crashToBootloader
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>false</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>When the stage-1 bootloader crashes, prefer rebooting directly to
+bootloader rather than panic by killing init.</p>
+</div>
+<div class="paragraph">
+<p>This may be preferrable for devices with direct serial access.</p>
+</div>
+<div class="paragraph">
+<p>Note that console ramoops requires the kernel to panic, this should
+be set to false if you rely on console ramoops to debug issues.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.boot.stage-1.extraUtils
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">list of attribute set or packages</dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Additional packages to be included inside stage-1.</p>
+</div>
+<div class="paragraph">
+<p>Do note that <strong>special manipulation</strong> happens and may
+not be compatible with everything.</p>
+</div>
+<div class="paragraph">
+<p>The format for extra commands is:
+<code>{ package = <em>package</em>; extraCommand = <em>extraCommand</em> }</code></p>
+</div>
+<div class="paragraph">
+<p>Where extraCommand is executed at build time, generally
+to fix the package for stage-1 use.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.boot.stage-1.fail.delay
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">signed integer</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>10</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Duration (in seconds) before a reboot on failure.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.boot.stage-1.fail.reboot
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>true</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Reboots the device after a delay on failure.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.boot.stage-1.fbterm.enable
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>false</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Enables fbterm.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.boot.stage-1.fbterm.fb
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">string</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>"/dev/fb1"</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>framebuffer to run fbterm on.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.boot.stage-1.initFramebuffer
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">strings concatenated with "\n"</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>""</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Commands ran particularly early for setting the framebuffer
+and framebuffer devices correctly.</p>
+</div>
+<div class="paragraph">
+<p>It is expected that after these commands the framebuffer
+has been made available.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.boot.stage-1.kernel.additional_modules
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">list of strings</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>[]</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Module names to add to the closure.
+They will not be modprobed.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.boot.stage-1.kernel.firmwares
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">list of strings</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>[]</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Firmwares to add to the cloure.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.boot.stage-1.kernel.modular
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>false</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Whether the kernel is built with modules or not.
+This will enable modules closure generation and listing modules
+to bundle and load.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.boot.stage-1.kernel.modules
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">list of strings</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>[]</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Module names to add to the closure.
+They will be modprobed.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.boot.stage-1.networking.IP
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">string</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>"172.16.42.1"</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>IP address for the USB networking gadget.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.boot.stage-1.networking.enable
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>false</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Enables networking.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.boot.stage-1.networking.hostIP
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">string</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>"172.16.42.2"</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>IP address for the USB networking gadget.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.boot.stage-1.shell.console
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">string</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>"console"</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Selects the /dev/<em>_</em> device to use.</p>
+</div>
+<div class="paragraph">
+<p>Use <code>ttyS0</code> for serial, <code>tty1</code> for first VT or keep the default to <code>console</code>
+for the last defined <code>console=</code> kernel parameter.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.boot.stage-1.shell.enable
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>false</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Enables a shell before switching root.</p>
+</div>
+<div class="paragraph">
+<p>This shell (as currently configured) will not allow switching root.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.boot.stage-1.shell.shellOnFail
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>false</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Enables a shell on failures.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.boot.stage-1.ssh.enable
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>false</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Enables ssh during stage-1.</p>
+</div>
+<div class="paragraph">
+<p><strong>CURRENT CONFIGURATION ALSO OPENS ACCESS TO ALL WITHOUT A PASSWORD NOR SSH KEY.</strong></p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.boot.stage-1.usb.enable
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>true</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Enables USB features.
+For now, only Android-based devices are supported.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.boot.stage-1.usb.features
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">list of strings</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>[]</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p><code>android_usb</code> features to enable.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.device.info
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">unspecified</dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>system type specific informations</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.device.name
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">string</dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>This option has no description.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.hardware.ram
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">signed integer</dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Total RAM available (in MB, 1GB = 1024MB).</p>
+</div>
+<div class="paragraph">
+<p>This may be used to turn on or off features depending on the device&#8217;s capabilities.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.hardware.screen.height
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">signed integer</dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>This option has no description.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.hardware.screen.width
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">signed integer</dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>This option has no description.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.hardware.soc
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">string</dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Give the SOC name for the device.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.hardware.socs.allwinner-a64.enable
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>false</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>enable when SOC is Allwinner A64</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.hardware.socs.allwinner-r18.enable
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>false</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>enable when SOC is Allwinner-R18</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.hardware.socs.qualcomm-apq8064-1aa.enable
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>false</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>enable when SOC is APQ8064–1AA</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.hardware.socs.qualcomm-msm8939.enable
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>false</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>enable when SOC is msm8939</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.hardware.socs.qualcomm-msm8953.enable
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>false</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>enable when SOC is msm8953</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.hardware.socs.qualcomm-msm8996.enable
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>false</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>enable when SOC is msm8996</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.hardware.socs.qualcomm-msm8998.enable
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>false</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>enable when SOC is msm8998</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.hardware.socs.qualcomm-sdm660.enable
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>false</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>enable when SOC is SDM660</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.hardware.socs.rockchip-op1.enable
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>false</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>enable when SOC is RK3399-OP1</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.quirks.qualcomm.dwc3-otg_switch.enable
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>false</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Enable this on a device which requires otg_switch to be
+configured for OTG to work.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.quirks.qualcomm.msm-fb-handle.enable
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>false</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Enables use of <code>msm-fb-handle</code>.
+This tool keeps a dummy handle open to the framebuffer, useful for msm_mdss
+which clears and shuts display down when all handles are closed.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.quirks.qualcomm.msm-fb-refresher.enable
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>false</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Enables use of <code>msm-fb-refresher</code>.
+Use sparingly, it is better to patch software to flip buffers instead.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.quirks.qualcomm.wcnss-wlan.enable
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">boolean</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>false</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Enable this on a device which uses wcnss wlan.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.quirks.u-boot.additionalCommands
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">string</dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Additional U-Boot commands to run.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.quirks.u-boot.initialGapSize
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">signed integer</dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Size (in bytes) to keep reserved in front of the first partition.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.quirks.u-boot.package
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">package</dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Which package handles u-boot for this system.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.system.system
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">one of "aarch64-linux", "armv7l-linux", "x86_64-linux"</dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Defines the kind of target architecture system the device is.</p>
+</div>
+<div class="paragraph">
+<p>This will automagically setup cross-compilation where possible.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.system.type
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">one of "u-boot", "android", "kernel-initrd", "depthcharge", "none"</dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>Defines the kind of system the device is.</p>
+</div>
+<div class="paragraph">
+<p>The different kind of system types will define the outputs
+produced for the system.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.usb.idProduct
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">string</dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>USB product ID for the USB gadget.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.usb.idVendor
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">string</dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>USB vendor ID for the USB gadget.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+<div>
+  <dt>
+    <tt>
+      mobile.usb.mode
+    </tt>
+  </dt>
+  <dd>
+    <dl class="option-definition">
+    <dt>Type:</dt>
+    <dd class="option-type">null or one of "android_usb", "gadgetfs"</dd>
+<dt>Default:</dt>
+<dd class="option-default"><code>null</code></dd>
+
+    <dt>Description:</dt>
+    <dd class="option-description">
+<div class="paragraph">
+<p>The USB gadget implementation the device uses.</p>
+</div>
+    </dd>
+  </dd>
+</div>
+</dl>
+</div>
+</div>
+</div>
+<footer id="footer">
+  <nav>
+    <ul>
+      <li></li>
+      
+      
+      <li><a href='../sitemap.html' class=''>Site Map</a></li>
+    </ul>
+  </nav>
+</footer>
+
+</body>
+</html>
